@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 
 // Import semua halaman/layar yang akan kita gunakan
-import 'package:zerocycle/features/onboarding/welcome_screen.dart'; // <-- Ganti nama_proyek
-import 'package:zerocycle/features/onboarding/onboarding_screen.dart'; // <-- Ganti nama_proyek
-import 'package:zerocycle/features/auth/login_screen.dart'; // <-- Ganti nama_proyek
-import 'package:zerocycle/features/auth/register_screen.dart'; // <-- Ganti nama_proyek
-import 'package:zerocycle/features/home/home_page.dart'; // <-- Ganti nama_proyek
-import 'package:zerocycle/features/Loading/Loading_sreen.dart'; // <-- Ganti nama_proyek
-import 'package:zerocycle/Screen/main_wrapper.dart'; // <-- Ganti nama_proyek
+import 'package:zerocycle/features/onboarding/welcome_screen.dart'; 
+import 'package:zerocycle/features/onboarding/onboarding_screen.dart'; 
+import 'package:zerocycle/features/auth/login_screen.dart'; 
+import 'package:zerocycle/features/auth/register_screen.dart'; 
+import 'package:zerocycle/features/home/home_page.dart'; 
+import 'package:zerocycle/features/Loading/Loading_sreen.dart'; 
+import 'package:zerocycle/Screen/main_wrapper.dart'; 
+import 'package:zerocycle/features/auth/OTPVerificationScreen.dart';
+import 'package:zerocycle/features/auth/reset_password_screen.dart'; 
+import 'package:zerocycle/features/auth/forgot_password_screen.dart'; 
+import 'package:zerocycle/features/home/DropOff/drop_off_location_screen.dart'; 
+import 'package:zerocycle/features/home/DropOff/detail_pengantaran_screen.dart'; 
 
 void main() {
   runApp(const MyApp());
@@ -15,6 +20,8 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +45,49 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       
       // initialRoute menentukan halaman mana yang pertama kali dibuka
-      initialRoute: '/', 
+      initialRoute: '/home', // <-- Ganti dengan rute awal yang diinginkan
+      // Gunakan onGenerateRoute untuk handle routing dengan parameter
+      onGenerateRoute: (RouteSettings settings) {
+        switch (settings.name) {
+          case '/detail-pengantaran':
+            return MaterialPageRoute(
+              builder: (context) => const LoginScreen(),
+            );
+          
+          case '/register':
+            return MaterialPageRoute(
+              builder: (context) => const RegisterScreen(),
+            );
+          
+          case '/forgot-password':
+            return MaterialPageRoute(
+              builder: (context) => const ForgotPasswordScreen(),
+            );
+          
+          case '/otp-verification':
+            // Ambil email dari arguments
+            final String email = settings.arguments as String? ?? '';
+            return MaterialPageRoute(
+              builder: (context) => OTPVerificationScreen(email: email),
+            );
+          
+          case '/reset-password':
+            // Ambil email dari arguments
+            final String email = settings.arguments as String? ?? '';
+            return MaterialPageRoute(
+              builder: (context) => ResetPasswordScreen(email: email),
+            );
+          
+          default:
+            return MaterialPageRoute(
+              builder: (context) => const LoginScreen(),
+            );
+
+            
+        }
+      },
+
+      
 
       // routes mendefinisikan semua kemungkinan halaman dalam aplikasi
       routes: {
@@ -49,6 +98,13 @@ class MyApp extends StatelessWidget {
         '/hom': (context) => const HomePage(),
         '/loading': (context) => const LoadingScreen(),
         '/home': (context) => const MainWrapper(),
+        '/otp': (context) => OTPVerificationScreen(email: ''),
+        '/resetpw': (context) => const ResetPasswordScreen(),
+        '/forgotPW': (context) => const ForgotPasswordScreen(),
+        '/drop-off': (context) => const DropOffLocationScreen(),
+        
+        
+     
         // Anda bisa menambahkan rute lain di sini nanti, misal:
         // '/home': (context) => const HomeScreen(),
       },

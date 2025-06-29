@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:zerocycle/features/home/widgets/points_card.dart';
 import 'package:zerocycle/features/home/widgets/service_menu_item.dart';
 import 'package:zerocycle/features/home/widgets/welcome_header_card.dart';
-import 'drop_off_screen.dart';
-import 'PickUpScreen.dart';
-import 'cycle_point.dart';
+import 'DropOff/drop_off_screen.dart';
+import 'PickUpScreen/PickUpScreen.dart';
+import 'cycle_point/cycle_point.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

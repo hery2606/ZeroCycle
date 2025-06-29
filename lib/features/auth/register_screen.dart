@@ -12,15 +12,28 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   bool _visible = false;
 
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
-    // Delay agar animasi muncul setelah build
     Future.delayed(const Duration(milliseconds: 200), () {
       setState(() {
         _visible = true;
       });
     });
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    phoneController.dispose();
+    super.dispose();
   }
 
   @override
@@ -69,30 +82,43 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 24),
-                      const CustomTextField(
+
+                      // Email
+                      CustomTextField(
+                        controller: emailController,
                         hintText: 'Email',
                         icon: Icons.alternate_email,
                         keyboardType: TextInputType.emailAddress,
                       ),
                       const SizedBox(height: 16),
-                      const CustomTextField(
+
+                      // Password
+                      CustomTextField(
+                        controller: passwordController,
                         hintText: 'Kata Sandi',
                         icon: Icons.lock_outline,
                         isPassword: true,
                       ),
                       const SizedBox(height: 16),
-                      const CustomTextField(
+
+                      // Konfirmasi Password
+                      CustomTextField(
+                        controller: confirmPasswordController,
                         hintText: 'Konfirmasi Kata Sandi',
                         icon: Icons.lock_outline,
                         isPassword: true,
                       ),
                       const SizedBox(height: 16),
-                      const CustomTextField(
+
+                      // Nomor Ponsel
+                      CustomTextField(
+                        controller: phoneController,
                         hintText: 'Nomor Ponsel',
                         icon: Icons.phone_android_outlined,
                         keyboardType: TextInputType.phone,
                       ),
                       const SizedBox(height: 32),
+
                       ElevatedButton(
                         onPressed: () {
                           // TODO: Logika Daftar
