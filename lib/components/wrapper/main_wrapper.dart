@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zerocycle/features/home/home_page.dart';
+import 'package:zerocycle/screens/account/akun_page_screen.dart';
+
 
 class MainWrapper extends StatefulWidget {
   const MainWrapper({super.key});
@@ -12,11 +14,11 @@ class _MainWrapperState extends State<MainWrapper> with TickerProviderStateMixin
   int _selectedIndex = 0;
   late AnimationController _fabAnimationController;
 
-  static const List<Widget> _pages = <Widget>[
+  final List<Widget> _pages = const [
     HomePage(),
-    Placeholder(), // Halaman Penjualan
-    Placeholder(), // Halaman Pesan
-    Placeholder(), // Halaman Akun
+    Placeholder(), // Penjualan
+    Placeholder(), // Pesan
+    AkunPageScreen(), // Akun
   ];
 
   @override
@@ -43,99 +45,63 @@ class _MainWrapperState extends State<MainWrapper> with TickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF0D723F),
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        title: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(4),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Image.asset('assets/images/logo_1.png', height: 24),
-            ),
-            const SizedBox(width: 12),
-            const Text(
-              'ZeroCycle',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications_none_outlined, color: Colors.white),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.shopping_cart_outlined, color: Colors.white),
-            onPressed: () {},
-          ),
-        ],
-      ),
+      // Appbar dihapus dari MainWrapper
       body: IndexedStack(
         index: _selectedIndex,
         children: _pages,
       ),
       floatingActionButton: Container(
-        width: 60,  // Diperbesar dari sebelumnya
-        height: 60, // Diperbesar dari sebelumnya
+        width: 64,
+        height: 64,
         decoration: BoxDecoration(
-          color: const Color(0xFF27AE60),
-          shape: BoxShape.circle, // Bentuk bulat sempurna
+          gradient: const LinearGradient(
+            colors: [Color(0xFF27AE60), Color(0xFF219653)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: Colors.green.withOpacity(0.3),
+              color: Colors.green.withOpacity(0.4),
               blurRadius: 10,
-              offset: const Offset(0, 4),
+              offset: const Offset(0, 6),
             ),
           ],
         ),
-        child: Material(
-          color: Colors.transparent,
-          shape: const CircleBorder(),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(30),
-            onTap: () {
-              _fabAnimationController.reset();
-              _fabAnimationController.forward();
-              // Aksi untuk tombol lokasi
+        child: FloatingActionButton(
+          onPressed: () {
+            _fabAnimationController.reset();
+            _fabAnimationController.forward();
+            // TODO: Tambahkan aksi untuk lokasi
+          },
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          child: Image.asset(
+            'assets/images/location2.png',
+            width: 50,
+            height: 50,
+            errorBuilder: (context, error, stackTrace) {
+              return const Icon(
+                Icons.location_on,
+                color: Colors.white,
+                size: 28,
+              );
             },
-            child: Center(
-              child: Image.asset(
-                'assets/images/location2.png',
-                width: 32,  // Gambar diperbesar
-                height: 32, // Gambar diperbesar
-                errorBuilder: (context, error, stackTrace) {
-                  return const Icon(
-                    Icons.location_on,
-                    color: Colors.white,
-                    size: 32,
-                  );
-                },
-              ),
-            ),
           ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        height: 70,
-        color: Colors.white,
         shape: const CircularNotchedRectangle(),
         notchMargin: 8,
+        color: Colors.white,
+        height: 70,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             _buildNavItem('Beranda', 0),
             _buildNavItem('Penjualan', 1),
-            const SizedBox(width: 48), // Space untuk FAB yang lebih besar
+            const SizedBox(width: 48), // Space for FAB
             _buildNavItem('Pesan', 2),
             _buildNavItem('Akun', 3),
           ],
@@ -171,15 +137,11 @@ class _MainWrapperState extends State<MainWrapper> with TickerProviderStateMixin
           children: [
             Image.asset(
               getIconPath(),
-              color: color,
               width: 24,
               height: 24,
+              color: color,
               errorBuilder: (context, error, stackTrace) {
-                return Icon(
-                  Icons.help_outline,
-                  color: color,
-                  size: 24,
-                );
+                return Icon(Icons.help_outline, color: color, size: 24);
               },
             ),
             const SizedBox(height: 4),

@@ -1,12 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:zerocycle/screens/points/bagikan_page.dart';
+import 'package:zerocycle/screens/points/penukaran_page.dart';
+import 'package:zerocycle/screens/points/pencairan_page.dart';
 
 class PointsCard extends StatelessWidget {
   const PointsCard({super.key});
 
+  final int points = 1000; // Ubah ini dengan nilai dinamis jika perlu
+
+  void _navigateTo(BuildContext context, Widget page) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => page),
+    );
+  }
+
+  double _getFontSize(String text) {
+    final length = text.length;
+
+    if (length <= 2) {
+      return 48;
+    } else if (length == 3) {
+      return 42;
+    } else if (length == 4) {
+      return 36;
+    } else {
+      return 32;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -22,42 +48,43 @@ class PointsCard extends StatelessWidget {
         children: [
           // Bagian Poin (Kiri)
           Expanded(
-            flex: 4, // Beri ruang lebih sedikit
+            flex: 4,
             child: Container(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  // PERBAIKAN: Menambahkan border abu-abu tipis
-                  border: Border.all(color: Colors.grey[200]!, width: 1.5)),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: const Color.fromARGB(255, 171, 171, 171),
+                  width: 1.5,
+                ),
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
-                      // PERBAIKAN: Menggunakan CircleAvatar untuk logo
                       CircleAvatar(
                         radius: 12,
                         backgroundColor: Colors.transparent,
-                        // Ganti dengan path logo cycle points Anda
-                        child: Image.asset('assets/images/cycle.png'), 
+                        child: Image.asset('assets/images/cycle.png'),
                       ),
                       const SizedBox(width: 8),
                       const Text(
                         'Cycle Points',
                         style: TextStyle(
                           fontSize: 14,
-                          fontWeight: FontWeight.w600, // Sedikit tebal
+                          fontWeight: FontWeight.w600,
                           color: Colors.black87,
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 8),
-                  const Center(
+                  Center(
                     child: Text(
-                      '0',
+                      points.toString(),
                       style: TextStyle(
-                        fontSize: 48,
+                        fontSize: _getFontSize(points.toString()),
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
@@ -67,25 +94,38 @@ class PointsCard extends StatelessWidget {
               ),
             ),
           ),
-          
+
           // Bagian Aksi (Kanan)
           Expanded(
-            flex: 5, // Beri ruang lebih banyak
+            flex: 4,
             child: Padding(
-              padding: const EdgeInsets.only(left: 24.0),
+              padding: const EdgeInsets.only(left: 29.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  // PERBAIKAN: Memanggil _buildActionRow dengan path aset
-                  _buildActionRow(
-                      assetPath: 'assets/images/Vector.png', label: 'Bagikan'),
+                  GestureDetector(
+                    onTap: () => _navigateTo(context, const BagikanPage()),
+                    child: _buildActionRow(
+                      assetPath: 'assets/images/Vector.png',
+                      label: 'Bagikan',
+                    ),
+                  ),
                   const SizedBox(height: 18),
-                  _buildActionRow(
-                      assetPath: 'assets/images/share.png', label: 'Penukaran'),
+                  GestureDetector(
+                    onTap: () => _navigateTo(context, const PenukaranPage()),
+                    child: _buildActionRow(
+                      assetPath: 'assets/images/share.png',
+                      label: 'Penukaran',
+                    ),
+                  ),
                   const SizedBox(height: 18),
-                  _buildActionRow(
-                      assetPath: 'assets/images/wallet.png', label: 'Pencairan'),
+                  GestureDetector(
+                    onTap: () => _navigateTo(context, const PencairanPage()),
+                    child: _buildActionRow(
+                      assetPath: 'assets/images/wallet.png',
+                      label: 'Pencairan',
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -95,19 +135,17 @@ class PointsCard extends StatelessWidget {
     );
   }
 
-  // PERBAIKAN: Method diubah untuk menerima path aset, bukan IconData
   Widget _buildActionRow({required String assetPath, required String label}) {
-    return Row(
+    return Row(      
       children: [
-        // Ikon kustom dalam lingkaran
         CircleAvatar(
-          radius: 15,
+          radius: 12,     
           backgroundColor: Colors.black,
           child: Padding(
             padding: const EdgeInsets.all(6.0),
             child: Image.asset(
               assetPath,
-              color: Colors.white, // Membuat ikon jadi putih
+              color: Colors.white,
             ),
           ),
         ),

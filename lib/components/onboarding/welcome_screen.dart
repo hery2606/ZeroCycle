@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // 1. TAMBAHKAN IMPORT INI untuk menghubungkan ke halaman onboarding
-import 'package:zerocycle/features/onboarding/onboarding_screen.dart'; // <-- Ganti 'zerocycle' dengan nama proyek Anda
+import 'package:zerocycle/components/onboarding/onboarding_screen.dart'; // <-- Ganti 'zerocycle' dengan nama proyek Anda
 // <-- Ganti 'package_name' dengan nama proyek Anda
 
 class WelcomeScreen extends StatelessWidget {

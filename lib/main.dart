@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 
 // Import semua halaman/layar yang akan kita gunakan
-import 'package:zerocycle/features/onboarding/welcome_screen.dart'; 
-import 'package:zerocycle/features/onboarding/onboarding_screen.dart'; 
+import 'package:zerocycle/components/onboarding/welcome_screen.dart'; 
+import 'package:zerocycle/components/onboarding/onboarding_screen.dart'; 
 import 'package:zerocycle/features/auth/login_screen.dart'; 
 import 'package:zerocycle/features/auth/register_screen.dart'; 
 import 'package:zerocycle/features/home/home_page.dart'; 
-import 'package:zerocycle/features/Loading/Loading_sreen.dart'; 
-import 'package:zerocycle/Screen/main_wrapper.dart'; 
+import 'package:zerocycle/components/Loading/Loading_sreen.dart'; 
+import 'package:zerocycle/components/wrapper/main_wrapper.dart'; 
 import 'package:zerocycle/features/auth/OTPVerificationScreen.dart';
 import 'package:zerocycle/features/auth/reset_password_screen.dart'; 
 import 'package:zerocycle/features/auth/forgot_password_screen.dart'; 
-import 'package:zerocycle/features/home/DropOff/drop_off_location_screen.dart'; 
-import 'package:zerocycle/features/home/DropOff/detail_pengantaran_screen.dart'; 
+import 'package:zerocycle/features/home/DropOff/drop_off_location_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -102,6 +101,9 @@ class MyApp extends StatelessWidget {
         '/resetpw': (context) => const ResetPasswordScreen(),
         '/forgotPW': (context) => const ForgotPasswordScreen(),
         '/drop-off': (context) => const DropOffLocationScreen(),
+        
+
+      
         
         
      
