@@ -3,7 +3,7 @@ import 'auth_header.dart';
 import 'custom_text_field.dart';
 import 'register_screen.dart';
 import 'forgot_password_screen.dart';
-import 'package:zerocycle/features/home/home_page.dart';
+import 'package:zerocycle/components/wrapper/main_wrapper.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -112,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (email == 'admin' && password == 'password') {
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (context) => const HomePage()),
+                              MaterialPageRoute(builder: (context) => const MainWrapper()),
                             );
                             return;
                           }

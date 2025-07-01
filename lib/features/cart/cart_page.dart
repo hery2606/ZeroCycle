@@ -6,24 +6,33 @@ class CartPage extends StatelessWidget {
 
   final List<Map<String, dynamic>> cartData = const [
     // Kosongkan array ini untuk test tampilan kosong
-    // {
-    //   'index': 1,
-    //   'category': 'Plastik',
-    //   'items': {
-    //     'Botol Plastik': 5,
-    //     'Wadah Plastik': 10,
-    //     'Perabotan Plastik': 7,
-    //   },
-    // },
-    // {
-    //   'index': 2,
-    //   'category': 'Kertas',
-    //   'items': {
-    //     'Kertas Koran': 2,
-    //     'Kertas Karton': 22,
-    //     'Kertas Lainnya': 8,
-    //   },
-    // },
+    {
+      'index': 1,
+      'category': 'Plastik',
+      'items': {
+        'Botol Plastik': 5,
+        'Wadah Plastik': 10,
+        'Perabotan Plastik': 7,
+      },
+    },
+    {
+      'index': 2,
+      'category': 'Kertas',
+      'items': {
+        'Kertas Koran': 2,
+        'Kertas Karton': 22,
+        'Kertas Lainnya': 8,
+      },
+    },
+    {
+      'index': 4,
+      'category': 'Botol Kaca',
+      'items': {
+        'Botol Kaca': 5,
+        'Wadah Kaca': 10,
+        'Perabotan Kaca': 7,
+      },
+    },
   ];
 
   int get totalBerat {

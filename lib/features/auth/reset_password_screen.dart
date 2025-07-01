@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'auth_header.dart';
 import 'custom_text_field.dart';
+import '../auth/login_screen.dart'; // Import MainWrapper untuk navigasi
 
 class ResetPasswordScreen extends StatefulWidget {
   final String? email; // Buat email optional
@@ -107,7 +108,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.popUntil(context, (route) => route.isFirst);
+                     Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => const LoginScreen()),
+                          );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF27AE60),
