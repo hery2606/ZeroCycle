@@ -91,7 +91,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF2ECC71),
+      backgroundColor: const Color(0xFF0D723F),
       body: Column(
         children: [
           const AuthHeader(

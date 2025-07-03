@@ -14,7 +14,7 @@ class WelcomeScreen extends StatelessWidget {
 
     return Scaffold(
       // Warna background hijau sesuai dengan gambar
-      backgroundColor: const Color(0xFF2ECC71),
+      backgroundColor: const Color(0xFF1B7748),
       body: SafeArea(
         child: Padding(
           // Memberi padding di sisi kiri dan kanan

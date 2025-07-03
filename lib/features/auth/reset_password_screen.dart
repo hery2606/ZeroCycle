@@ -76,7 +76,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 width: 80,
                 height: 80,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF2ECC71),
+                  color: const Color(0xFF0D723F),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(

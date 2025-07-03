@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:zerocycle/features/home/withdraw-page/success_page.dart';
+import 'package:zerocycle/features/home/withdraw-page/withdraw.dart';
+import 'package:zerocycle/features/home/withdraw-page/WithdrawPage.dart';
+
+
 
 class AkunPageScreen extends StatelessWidget {
   const AkunPageScreen({super.key});
@@ -26,7 +31,7 @@ class AkunPageScreen extends StatelessWidget {
               children: [
                 const CircleAvatar(
                   radius: 32,
-                  backgroundImage: AssetImage('assets/images/avatar.png'), // ganti jika ada
+                  backgroundImage: AssetImage('assets/images/avatar.png'),
                 ),
                 const SizedBox(width: 16),
                 Column(
@@ -81,16 +86,70 @@ class AkunPageScreen extends StatelessWidget {
             ),
           ),
 
-          // Menu
+          // Menu & Setting
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
-                _buildMenuItem(Icons.history, 'Riwayat Transaksi'),
-                _buildMenuItem(Icons.card_giftcard, 'Tukar Poin'),
-                _buildMenuItem(Icons.edit, 'Edit Profil'),
-                _buildMenuItem(Icons.feedback, 'Umpan Balik'),
-                _buildMenuItem(Icons.logout, 'Logout', isDestructive: true),
+                _buildMenuItem(
+                  context,
+                  Icons.history,
+                  'Riwayat Transaksi',
+                  
+                ),
+                _buildMenuItem(
+                  context,
+                  Icons.card_giftcard,
+                  'Tukar Poin',
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const WithdrawPage()),
+                  ),
+                ),
+                _buildMenuItem(
+                  context,
+                  Icons.edit,
+                  'Edit Profil',
+                  
+                ),
+                _buildMenuItem(
+                  context,
+                  Icons.feedback,
+                  'Umpan Balik',
+                
+                ),
+                _buildMenuItem(
+                  context,
+                  Icons.logout,
+                  'Logout',
+                  isDestructive: true,
+                  onTap: () {
+                    // Tambahkan logika logout di sini
+                    Navigator.pop(context);
+                  },
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'Pengaturan Akun',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                _buildMenuItem(
+                  context,
+                  Icons.location_on,
+                  'Lokasi',
+                 
+                ),
+                _buildMenuItem(
+                  context,
+                  Icons.phone,
+                  'Nomor HP',
+               
+                ),
               ],
             ),
           ),
@@ -99,7 +158,13 @@ class AkunPageScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem(IconData icon, String title, {bool isDestructive = false}) {
+  Widget _buildMenuItem(
+    BuildContext context,
+    IconData icon,
+    String title, {
+    bool isDestructive = false,
+    VoidCallback? onTap,
+  }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
@@ -119,9 +184,7 @@ class AkunPageScreen extends StatelessWidget {
           ),
         ),
         trailing: const Icon(Icons.chevron_right),
-        onTap: () {
-          // TODO: Tambahkan navigasi
-        },
+        onTap: onTap,
       ),
     );
   }

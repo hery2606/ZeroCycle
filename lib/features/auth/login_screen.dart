@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF2ECC71),
+      backgroundColor: const Color(0xFF0D723F),
       body: Column(
         children: [
           const AuthHeader(
@@ -123,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF27AE60),
+                          backgroundColor: const Color(0xFF1B7748),
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),

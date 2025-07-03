@@ -47,7 +47,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  static const Color primaryColor = Color(0xFF27AE60);
+  static const Color primaryColor = Color(0xFF0D723F);
   static const Color inactiveDotColor = Color(0xFFD9D9D9);
   static const Color textColor = Color(0xFF333333);
   static const Color descriptionColor = Color(0xFF666666);

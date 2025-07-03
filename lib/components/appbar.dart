@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:zerocycle/features/cart/cart_page.dart'; // Ganti path sesuai lokasi file cart_page.dart
+import 'package:zerocycle/features/cart/cart_page.dart'; 
+import 'package:zerocycle/features/notification/notification_page.dart'; 
+
 
 class Appbar extends StatelessWidget implements PreferredSizeWidget {
   const Appbar({super.key});
@@ -37,7 +39,12 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           icon: const Icon(Icons.notifications_none_outlined, color: Colors.white),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const NotificationPage()),
+            );
+          },
         ),
         IconButton(
           icon: Image.asset(

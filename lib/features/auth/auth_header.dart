@@ -16,7 +16,7 @@ class AuthHeader extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      color: const Color(0xFF2ECC71),
+      color: const Color(0xFF0D723F),
       padding: EdgeInsets.only(bottom: 30, top: screenHeight * 0.05),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zerocycle/screens/points/bagikan_page.dart';
 import 'package:zerocycle/screens/points/penukaran_page.dart';
 import 'package:zerocycle/screens/points/pencairan_page.dart';
+import 'package:zerocycle/features/home/withdraw-page/withdraw.dart';
 
 class PointsCard extends StatelessWidget {
   const PointsCard({super.key});
@@ -120,7 +121,7 @@ class PointsCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 18),
                   GestureDetector(
-                    onTap: () => _navigateTo(context, const PencairanPage()),
+                    onTap: () => _navigateTo(context, const  CyclePointWithdrawScreen()),
                     child: _buildActionRow(
                       assetPath: 'assets/images/wallet.png',
                       label: 'Pencairan',
