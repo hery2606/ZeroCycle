@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:zerocycle/features/home/home_page.dart';
 import 'package:zerocycle/screens/account/akun_page_screen.dart';
 import 'package:zerocycle/screens/penjualan/sales_screen.dart';
+import 'package:zerocycle/screens/pesan/pesan_screen.dart';
+import 'package:zerocycle/screens/lokasi/maps_screen.dart';
 
 
 class MainWrapper extends StatefulWidget {
@@ -18,7 +20,7 @@ class _MainWrapperState extends State<MainWrapper> with TickerProviderStateMixin
   final List<Widget> _pages = const [
     HomePage(),
     SalesScreen(), // Penjualan
-    Placeholder(), // Pesan
+    PesanScreen(), // Pesan
     AkunPageScreen(), // Akun
   ];
 
@@ -56,6 +58,10 @@ class _MainWrapperState extends State<MainWrapper> with TickerProviderStateMixin
           _fabAnimationController.reset();
           _fabAnimationController.forward();
           // TODO: Tambahkan aksi untuk lokasi
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const MapsScreen()), // Ganti dengan halaman lokasi yang sesuai
+          );
         },
         backgroundColor: Colors.transparent,
         elevation: 0,

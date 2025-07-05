@@ -86,7 +86,7 @@ class ConfirmWithdrawPage extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  // TODO: implement navigation to success page & failed page
+                  // Navigasi ke halaman sukses
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -97,10 +97,8 @@ class ConfirmWithdrawPage extends StatelessWidget {
                       ),
                     ),
                   );
-                  Navigator.pop(context); // sementara kembali ke halaman sebelumnya
+                  // Menghapus baris Navigator.pop(context) agar tidak kembali ke halaman sebelumnya
                 },
-
-
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF0D723F),
                   padding: const EdgeInsets.symmetric(vertical: 16),
@@ -121,3 +119,4 @@ class ConfirmWithdrawPage extends StatelessWidget {
     );
   }
 }
+ 

@@ -95,37 +95,50 @@ class PointsCard extends StatelessWidget {
             ),
           ),
 
-          // Bagian Aksi (Kanan)
+          // Bagian Aksi (Kanan) - Improved
           Expanded(
             flex: 4,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 29.0),
+            child: Container(
+              padding: const EdgeInsets.only(left: 24.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  GestureDetector(
-                    onTap: () => _navigateTo(context, const BagikanPage()),
-                    child: _buildActionRow(
-                      assetPath: 'assets/images/Vector.png',
-                      label: 'Bagikan',
-                    ),
+                  // Spacing at the top for visual balance
+                  const SizedBox(height: 8),
+                  
+                  // Pencairan button
+                  _buildActionButton(
+                    context: context,
+                    assetPath: 'assets/images/wallet.png',
+                    label: 'Pencairan',
+                    onTap: () => _navigateTo(context, const CyclePointWithdrawScreen()),
                   ),
-                  const SizedBox(height: 18),
-                  GestureDetector(
+                  
+                  // Consistent spacing between buttons
+                  const SizedBox(height: 14),
+                  
+                  // Penukaran button
+                  _buildActionButton(
+                    context: context,
+                    assetPath: 'assets/images/share.png',
+                    label: 'Penukaran',
                     onTap: () => _navigateTo(context, const PenukaranPage()),
-                    child: _buildActionRow(
-                      assetPath: 'assets/images/share.png',
-                      label: 'Penukaran',
-                    ),
                   ),
-                  const SizedBox(height: 18),
-                  GestureDetector(
-                    onTap: () => _navigateTo(context, const  CyclePointWithdrawScreen()),
-                    child: _buildActionRow(
-                      assetPath: 'assets/images/wallet.png',
-                      label: 'Pencairan',
-                    ),
+                  
+                  // Consistent spacing between buttons
+                  const SizedBox(height: 14),
+                  
+                  // Bagikan button
+                  _buildActionButton(
+                    context: context,
+                    assetPath: 'assets/images/Vector.png',
+                    label: 'Bagikan',
+                    onTap: () => _navigateTo(context, const BagikanPage()),
                   ),
+                  
+                  // Bottom spacing for visual balance
+                  const SizedBox(height: 8),
                 ],
               ),
             ),
@@ -135,30 +148,72 @@ class PointsCard extends StatelessWidget {
     );
   }
 
-  Widget _buildActionRow({required String assetPath, required String label}) {
-    return Row(      
-      children: [
-        CircleAvatar(
-          radius: 12,     
-          backgroundColor: Colors.black,
-          child: Padding(
-            padding: const EdgeInsets.all(6.0),
-            child: Image.asset(
-              assetPath,
-              color: Colors.white,
-            ),
+  Widget _buildActionButton({
+    required BuildContext context,
+    required String assetPath,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8),
+        splashColor: Colors.grey.shade200,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4.0),
+          child: Row(
+            children: [
+              // Circle with icon (keeping black background as requested)
+              Container(
+                width: 24,
+                height: 24,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 3,
+                      offset: const Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: Image.asset(
+                    assetPath,
+                    color: Colors.white,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+              
+              // Spacing between icon and text
+              const SizedBox(width: 14),
+              
+              // Text label
+              Expanded(
+                child: Text(
+                  label,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              
+              // Arrow indicator to show it's tappable
+              Icon(
+                Icons.chevron_right,
+                size: 18,
+                color: Colors.grey.shade500,
+              ),
+            ],
           ),
         ),
-        const SizedBox(width: 16),
-        Text(
-          label,
-          style: const TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
-            color: Colors.black,
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

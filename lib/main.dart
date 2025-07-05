@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zerocycle/utils/animation_debugger.dart';
 
 // Import semua halaman/layar yang akan kita gunakan
 import 'package:zerocycle/components/onboarding/welcome_screen.dart'; 
@@ -12,15 +13,33 @@ import 'package:zerocycle/features/auth/OTPVerificationScreen.dart';
 import 'package:zerocycle/features/auth/reset_password_screen.dart'; 
 import 'package:zerocycle/features/auth/forgot_password_screen.dart'; 
 import 'package:zerocycle/features/home/DropOff/drop_off_location_screen.dart';
+import 'package:zerocycle/screens/account/transaction_history_screen.dart';
+import 'package:zerocycle/screens/account/edit_profile_screen.dart';
+import 'package:zerocycle/screens/account/feedback_screen.dart';
+import 'package:zerocycle/screens/account/location_settings_screen.dart';
+import 'package:zerocycle/screens/account/phone_number_settings_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Inisialisasi debugger animasi
+  AnimationDebugger.initialize();
+  
+  // Tambahkan ini untuk memperbaiki masalah animasi secara global
+  FlutterError.onError = (FlutterErrorDetails details) {
+    // Handle animasi error khusus
+    if (details.exception.toString().contains('packages/flutter/lib/src/animation/curves.dart')) {
+      debugPrint('Animation curve error detected and handled');
+    } else {
+      FlutterError.presentError(details);
+    }
+  };
+  
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +63,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       
       // initialRoute menentukan halaman mana yang pertama kali dibuka
-      initialRoute: '/', // <-- Ganti dengan rute awal yang diinginkan
+      initialRoute: '/home', // <-- Ganti dengan rute awal yang diinginkan
       // Gunakan onGenerateRoute untuk handle routing dengan parameter
       onGenerateRoute: (RouteSettings settings) {
         switch (settings.name) {
@@ -101,6 +120,11 @@ class MyApp extends StatelessWidget {
         '/resetpw': (context) => const ResetPasswordScreen(),
         '/forgotPW': (context) => const ForgotPasswordScreen(),
         '/drop-off': (context) => const DropOffLocationScreen(),
+        '/transaction-history': (context) => const TransactionHistoryScreen(),
+        '/edit-profile': (context) => const EditProfileScreen(),
+        '/feedback': (context) => const FeedbackScreen(),
+        '/location-settings': (context) => const LocationSettingsScreen(),
+        '/phone-settings': (context) => const PhoneNumberSettingsScreen(),
         
 
       
@@ -110,6 +134,28 @@ class MyApp extends StatelessWidget {
         // Anda bisa menambahkan rute lain di sini nanti, misal:
         // '/home': (context) => const HomeScreen(),
       },
+    );
+  }
+}
+
+// Placeholder HomeScreen - replace with your actual home screen
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('ZeroCycle'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/drop-off');
+          },
+          child: const Text('Go to Drop Off'),
+        ),
+      ),
     );
   }
 }
