@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:zerocycle/features/notification/empty_notif.dart';
-import 'package:zerocycle/features/notification/notif_card.dart';
 
 class NotificationPage extends StatelessWidget {
   const NotificationPage({super.key});
