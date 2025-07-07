@@ -115,7 +115,7 @@ class _KategoriSampahState extends State<KategoriSampah> {
                     option['type'],
                     option['selected'],
                     option,
-                  )).toList(),
+                  )),
                   
                   const SizedBox(height: 16),
                 ],

@@ -13,7 +13,7 @@ class MapsScreen extends StatefulWidget {
 class _MapsScreenState extends State<MapsScreen> {
   GoogleMapController? mapController;
   LatLng _initialPosition = const LatLng(-7.797068, 110.370529); // Default: Jogja
-  Set<Marker> _markers = {};
+  final Set<Marker> _markers = {};
   BitmapDescriptor? customIcon;
   final TextEditingController _searchController = TextEditingController();
   bool _isLoading = true;

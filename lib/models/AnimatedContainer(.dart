@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AnimatedContainerWidget extends StatelessWidget {
-  const AnimatedContainerWidget({Key? key}) : super(key: key);
+  const AnimatedContainerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -5,6 +5,8 @@ import 'package:zerocycle/screens/account/edit_profile_screen.dart';
 import 'package:zerocycle/screens/account/feedback_screen.dart';
 import 'package:zerocycle/screens/account/location_settings_screen.dart';
 import 'package:zerocycle/screens/account/phone_number_settings_screen.dart';
+import 'package:zerocycle/features/notification/notification_page.dart'; 
+
 import 'dart:math' as math;
 
 class AkunPageScreen extends StatefulWidget {
@@ -52,146 +54,212 @@ class _AkunPageScreenState extends State<AkunPageScreen> with SingleTickerProvid
       backgroundColor: const Color(0xFFF8F9FA),
       body: CustomScrollView(
         slivers: [
-          // Animated App Bar
-          SliverAppBar(
-            expandedHeight: 200.0,
+            // Modern Animated App Bar with Glassmorphism
+            SliverAppBar(
+            expandedHeight: 240.0,
             floating: false,
             pinned: true,
+            elevation: 0,
             backgroundColor: const Color(0xFF1B7748),
             flexibleSpace: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
-                final top = constraints.biggest.height;
-                final expandRatio = (top - kToolbarHeight) / (200 - kToolbarHeight);
-                final opacity = math.max(0, expandRatio);
-                
-                return FlexibleSpaceBar(
-                    centerTitle: false,
-                    title: AnimatedOpacity(
-                    opacity: 1.0 - opacity,
-                    duration: Duration(milliseconds: 200),
-                    child: Text(
-                      'Akun Saya',
-                      style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+              final top = constraints.biggest.height;
+              final expandRatio = (top - kToolbarHeight) / (240 - kToolbarHeight);
+              final opacity = math.max(0, expandRatio);
+              
+              return FlexibleSpaceBar(
+                centerTitle: false,
+                title: AnimatedOpacity(
+                opacity: 1.0 - opacity,
+                duration: const Duration(milliseconds: 200),
+                child: const Text(
+                  'Akun Saya',
+                  style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                  letterSpacing: 0.5,
+                  ),
+                ),
+                ),
+                titlePadding: EdgeInsets.only(
+                bottom: 16,
+                left: 16 * (1 - expandRatio),
+                ),
+                expandedTitleScale: 1.0,
+                collapseMode: CollapseMode.parallax,
+                background: Stack(
+                fit: StackFit.expand,
+                children: [
+                  // Modern gradient background
+                  Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color(0xFF2A9D5C),
+                      Color(0xFF1B7748),
+                      Color(0xFF0D5E32),
+                    ],
+                    ),
+                  ),
+                  ),
+                  
+                  // Animated wave pattern overlay
+                  Positioned.fill(
+                  child: ShaderMask(
+                    shaderCallback: (Rect bounds) {
+                    return LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Colors.white.withOpacity(0.15), Colors.white.withOpacity(0.05)],
+                    ).createShader(bounds);
+                    },
+                    child: Image.asset(
+                    'assets/images/pattern.png',
+                    fit: BoxFit.cover,
+                    ),
+                  ),
+                  ),
+                  
+                  // Frosted glass effect for profile section
+                  Positioned(
+                  bottom: 20,
+                  left: 20,
+                  right: 20,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                      decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: Colors.white.withOpacity(0.2),
+                        width: 1,
                       ),
-                    ),
-                    ),
-                    titlePadding: EdgeInsets.only(
-                    left: 16,
-                    bottom: 16 * (1 - expandRatio),
-                    top: expandRatio < 0.5 ? kToolbarHeight / 4 : 0,
-                    ),
-                    expandedTitleScale: 1.0,
-                    collapseMode: CollapseMode.pin,
-                  background: Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      // Background gradient
-                      Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              const Color(0xFF1B7748),
-                              const Color(0xFF0D723F),
+                      ),
+                      child: Row(
+                      children: [
+                        // Enhanced profile picture
+                        TweenAnimationBuilder<double>(
+                        tween: Tween<double>(begin: 0.0, end: 1.0),
+                        duration: const Duration(milliseconds: 800),
+                        curve: Curves.easeOutBack,
+                        builder: (context, value, child) {
+                          return Transform.scale(
+                          scale: value,
+                          child: child,
+                          );
+                        },
+                        child: Hero(
+                          tag: 'profile-pic',
+                          child: Container(
+                          height: 70,
+                          width: 70,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.white, width: 3),
+                            boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              blurRadius: 12,
+                              spreadRadius: 2,
+                            ),
                             ],
                           ),
-                        ),
-                      ),
-                      // Decorative pattern
-                      Opacity(
-                        opacity: 0.1,
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/pattern.png'),
-                              fit: BoxFit.cover,
-                            ),
+                          child: const CircleAvatar(
+                            backgroundImage: AssetImage('assets/images/profile_picture.png'),
+                          ),
                           ),
                         ),
-                      ),
-                      // Profile content
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        ),
+                        const SizedBox(width: 16),
+                        
+                        // User information with improved typography
+                        Expanded(
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                Hero(
-                                  tag: 'profile-pic',
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(color: Colors.white, width: 2),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.2),
-                                          blurRadius: 10,
-                                          offset: const Offset(0, 5),
-                                        ),
-                                      ],
-                                    ),
-                                    child: const CircleAvatar(
-                                      radius: 35,
-                                      backgroundImage: AssetImage('assets/images/avatar.png'),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 16),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: const [
-                                      Text(
-                                        'Nama Pengguna',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 22,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Row(
-                                        children: const [
-                                          Icon(Icons.email_outlined, color: Colors.white70, size: 16),
-                                          SizedBox(width: 4),
-                                          Text(
-                                            'email@example.com',
-                                            style: TextStyle(
-                                              color: Colors.white70,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                IconButton(
-                                  icon: const Icon(Icons.edit, color: Colors.white),
-                                  onPressed: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (_) => const EditProfileScreen()),
-                                  ),
-                                ),
-                              ],
+                          const Text(
+                            'Nama Pengguna',
+                            style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 0.5,
+                            shadows: [Shadow(blurRadius: 3.0, color: Colors.black26, offset: Offset(0, 2))],
                             ),
-                            const SizedBox(height: 20),
+                          ),
+                          const SizedBox(height: 4),
+                          Row(
+                            children: const [
+                            Icon(Icons.email_outlined, color: Colors.white70, size: 14),
+                            SizedBox(width: 4),
+                            Text(
+                              'email@example.com',
+                              style: TextStyle(color: Colors.white70, fontSize: 14),
+                            ),
+                            ],
+                          ),
+                          const SizedBox(height: 4),
+                          Row(
+                            children: const [
+                            Icon(Icons.verified, color: Colors.greenAccent, size: 14),
+                            SizedBox(width: 4),
+                            Text(
+                              'Verified Account',
+                              style: TextStyle(color: Colors.greenAccent, fontSize: 12, fontWeight: FontWeight.w500),
+                            ),
+                            ],
+                          ),
                           ],
                         ),
+                        ),
+                        
+                        // Modern edit button
+                        Material(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(30),
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(30),
+                          onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => const EditProfileScreen()),
+                          ),
+                          child: Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(
+                            color: Colors.white.withOpacity(0.3),
+                            width: 1,
+                            ),
+                          ),
+                          child: const Icon(
+                            Icons.edit_outlined,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                          ),
+                        ),
+                        ),
+                      ],
                       ),
-                    ],
+                    ),
+                    ),
                   ),
-                );
+                  ),
+                ],
+                ),
+              );
               },
             ),
-          ),
-          
+            ),
           // Points Card
           SliverToBoxAdapter(
             child: TweenAnimationBuilder<double>(
@@ -355,39 +423,7 @@ class _AkunPageScreenState extends State<AkunPageScreen> with SingleTickerProvid
                       ),
                     ),
                   ),
-                  FadeTransition(
-                    opacity: _menuAnimations[1],
-                    child: SlideTransition(
-                      position: Tween<Offset>(
-                        begin: const Offset(0.5, 0),
-                        end: Offset.zero,
-                      ).animate(_menuAnimations[1]),
-                      child: _buildMenuItem(
-                        context,
-                        Icons.card_giftcard,
-                        'Tukar Poin',
-                        'Dapatkan hadiah dari poin Anda',
-                        onTap: () => Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (context, animation, secondaryAnimation) => const WithdrawPage(),
-                            transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                              return FadeTransition(
-                                opacity: animation,
-                                child: SlideTransition(
-                                  position: Tween<Offset>(
-                                    begin: const Offset(0, 0.1),
-                                    end: Offset.zero,
-                                  ).animate(animation),
-                                  child: child,
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  
                   FadeTransition(
                     opacity: _menuAnimations[2],
                     child: SlideTransition(
@@ -545,8 +581,9 @@ class _AkunPageScreenState extends State<AkunPageScreen> with SingleTickerProvid
                         'Notifikasi',
                         'Atur preferensi notifikasi',
                         onTap: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Fitur Notifikasi akan segera hadir')),
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const NotificationPage()),
                           );
                         },
                       ),

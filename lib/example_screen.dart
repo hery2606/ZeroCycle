@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'utils/safe_animation.dart';
 
 class ExampleScreen extends StatefulWidget {
-  const ExampleScreen({Key? key}) : super(key: key);
+  const ExampleScreen({super.key});
 
   @override
   State<ExampleScreen> createState() => _ExampleScreenState();
