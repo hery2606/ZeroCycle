@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zerocycle/features/home/home_page.dart';
+import 'package:zerocycle/components/wrapper/main_wrapper.dart';
+
 
 class WithdrawSuccessPage extends StatelessWidget {
   final String account;
@@ -77,7 +79,7 @@ class WithdrawSuccessPage extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () => Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
+                    MaterialPageRoute(builder: (context) => const MainWrapper()),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF0F754A),

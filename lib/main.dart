@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       
       // initialRoute menentukan halaman mana yang pertama kali dibuka
-      initialRoute: '/home', // <-- Ganti dengan rute awal yang diinginkan
+      initialRoute: '/', // <-- Ganti dengan rute awal yang diinginkan
       // Gunakan onGenerateRoute untuk handle routing dengan parameter
       onGenerateRoute: (RouteSettings settings) {
         switch (settings.name) {

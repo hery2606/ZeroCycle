@@ -109,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           final password = passwordController.text.trim();
 
                           // Developer login bypass
-                          if (email == 'admin' && password == 'password') {
+                          if (email == 'testing@testing.com' && password == 'password') {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(builder: (context) => const MainWrapper()),

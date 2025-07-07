@@ -46,7 +46,7 @@ class PointsCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          // Bagian Poin (Kiri)
+          // Points Section (Left)
           Expanded(
             flex: 4,
             child: Container(
@@ -95,7 +95,7 @@ class PointsCard extends StatelessWidget {
             ),
           ),
 
-          // Bagian Aksi (Kanan) - Improved
+          // Action Section (Right) - Improved
           Expanded(
             flex: 4,
             child: Container(
@@ -107,7 +107,7 @@ class PointsCard extends StatelessWidget {
                   // Spacing at the top for visual balance
                   const SizedBox(height: 8),
                   
-                  // Pencairan button
+                  // Withdrawal button
                   _buildActionButton(
                     context: context,
                     assetPath: 'assets/images/wallet.png',
@@ -118,7 +118,7 @@ class PointsCard extends StatelessWidget {
                   // Consistent spacing between buttons
                   const SizedBox(height: 14),
                   
-                  // Penukaran button
+                  // Exchange button
                   _buildActionButton(
                     context: context,
                     assetPath: 'assets/images/share.png',
@@ -129,7 +129,7 @@ class PointsCard extends StatelessWidget {
                   // Consistent spacing between buttons
                   const SizedBox(height: 14),
                   
-                  // Bagikan button
+                  // Share button
                   _buildActionButton(
                     context: context,
                     assetPath: 'assets/images/Vector.png',
