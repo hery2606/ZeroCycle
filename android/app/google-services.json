@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "955055643388",
+    "project_id": "zerocycle-b1a93",
+    "storage_bucket": "zerocycle-b1a93.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:955055643388:android:6a023a032bbfbe1e1e1579",
+        "android_client_info": {
+          "package_name": "com.zerocycle.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "955055643388-st6uc21jmrujrp8hlpgtnhdlgv3b4cmm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDERZEBAMd63jHVDDUqsiMgt3t2mI1l9H4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "955055643388-st6uc21jmrujrp8hlpgtnhdlgv3b4cmm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
