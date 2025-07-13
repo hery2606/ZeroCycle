@@ -5,7 +5,7 @@ import 'package:zerocycle/features/home/widgets/service_menu_item.dart';
 import 'package:zerocycle/features/home/widgets/welcome_header_card.dart';
 import 'DropOff/drop_off_screen.dart';
 import 'PickUpScreen/PickUpScreen.dart';
-import 'cycle_point/cycle_point.dart';
+import 'withdraw-page/withdraw.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -73,7 +73,7 @@ class HomePage extends StatelessWidget {
                             title: 'Cycle Point',
                             subtitle: 'Tukar sampahmu jadi poin',
                             backgroundColor: const Color(0xFFDC9B72),
-                            onTap: () => _navigateToScreen(context, const CyclePointScreen()),
+                            onTap: () => _navigateToScreen(context, const CyclePointWithdrawScreen()),
                           ),
                           const SizedBox(height: 50),
                         ],

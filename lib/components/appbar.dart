@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:zerocycle/features/cart/cart_page.dart'; // Ganti path sesuai lokasi file cart_page.dart
+import 'package:zerocycle/features/cart/cart_page.dart'; 
+import 'package:zerocycle/features/notification/notification_page.dart'; 
+
 
 class Appbar extends StatelessWidget implements PreferredSizeWidget {
   const Appbar({super.key});
@@ -35,26 +37,101 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
         ],
       ),
       actions: [
-        IconButton(
-          icon: const Icon(Icons.notifications_none_outlined, color: Colors.white),
-          onPressed: () {},
+        // Notification Button with Badge
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            IconButton(
+              icon: const Icon(
+                Icons.notifications_outlined,
+                color: Colors.white,
+                size: 26,
+              ),
+              padding: const EdgeInsets.all(8),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const NotificationPage()),
+                );
+              },
+              tooltip: 'Notifikasi',
+            ),
+            Positioned(
+              top: 8,
+              right: 8,
+              child: Container(
+                width: 18,
+                height: 18,
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: const Color(0xFF0D723F), width: 2),
+                ),
+                child: const Center(
+                  child: Text(
+                    '3',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
-        IconButton(
-          icon: Image.asset(
-            'assets/images/keranjang.png',
-            width: 24,
-            height: 24,
-            color: Colors.white,
-            errorBuilder: (context, error, stackTrace) {
-              return const Icon(Icons.shopping_cart_outlined, color: Colors.white);
-            },
-          ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const CartPage()),
-            );
-          },
+        
+        // Cart Button with Badge - Using asset image
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(right: 8),
+              child: IconButton(
+                icon: Image.asset(
+                  'assets/images/keranjang.png',
+                  width: 24,
+                  height: 24,
+                  color: Colors.white,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Icon(Icons.shopping_cart_outlined, color: Colors.white);
+                  },
+                ),
+                padding: const EdgeInsets.all(8),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const CartPage()),
+                  );
+                },
+                tooltip: 'Keranjang',
+              ),
+            ),
+            Positioned(
+              top: 8,
+              right: 8,
+              child: Container(
+                width: 18,
+                height: 18,
+                decoration: BoxDecoration(
+                  color: Colors.amber,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: const Color(0xFF0D723F), width: 2),
+                ),
+                child: const Center(
+                  child: Text(
+                    '2',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );

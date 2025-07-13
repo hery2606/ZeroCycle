@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:zerocycle/features/home/home_page.dart';
 import 'package:zerocycle/screens/account/akun_page_screen.dart';
+import 'package:zerocycle/screens/penjualan/sales_screen.dart';
+import 'package:zerocycle/screens/pesan/pesan_screen.dart';
+import 'package:zerocycle/screens/lokasi/maps_screen.dart';
 
 
 class MainWrapper extends StatefulWidget {
@@ -16,8 +19,8 @@ class _MainWrapperState extends State<MainWrapper> with TickerProviderStateMixin
 
   final List<Widget> _pages = const [
     HomePage(),
-    Placeholder(), // Penjualan
-    Placeholder(), // Pesan
+    SalesScreen(), // Penjualan
+    PesanScreen(), // Pesan
     AkunPageScreen(), // Akun
   ];
 
@@ -50,43 +53,50 @@ class _MainWrapperState extends State<MainWrapper> with TickerProviderStateMixin
         index: _selectedIndex,
         children: _pages,
       ),
-      floatingActionButton: Container(
-        width: 64,
-        height: 64,
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [Color(0xFF27AE60), Color(0xFF219653)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.green.withOpacity(0.4),
-              blurRadius: 10,
-              offset: const Offset(0, 6),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _fabAnimationController.reset();
+          _fabAnimationController.forward();
+          // TODO: Tambahkan aksi untuk lokasi
+          
+        },
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        shape: const CircleBorder(),
+        child: Container(
+          width: 64,
+          height: 64,
+        
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF27AE60), Color.fromARGB(255, 119, 173, 146)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              
             ),
-          ],
-        ),
-        child: FloatingActionButton(
-          onPressed: () {
-            _fabAnimationController.reset();
-            _fabAnimationController.forward();
-            // TODO: Tambahkan aksi untuk lokasi
-          },
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          child: Image.asset(
-            'assets/images/location2.png',
-            width: 50,
-            height: 50,
-            errorBuilder: (context, error, stackTrace) {
-              return const Icon(
-                Icons.location_on,
-                color: Colors.white,
-                size: 28,
-              );
-            },
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.green.withOpacity(0.4),
+                blurRadius: 10,
+                offset: const Offset(0, 6),
+              ),
+            ],
+          ),
+          child: Center(
+            child: Image.asset(
+              'assets/images/location2.png',
+              width: 50,
+              height: 50,
+             
+              errorBuilder: (context, error, stackTrace) {
+                return const Icon(
+                  Icons.location_on,
+                  color: Colors.white,
+                  size: 28,
+                );
+              },
+            ),
           ),
         ),
       ),

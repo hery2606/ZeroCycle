@@ -12,6 +12,8 @@ import 'package:zerocycle/features/auth/OTPVerificationScreen.dart';
 import 'package:zerocycle/features/auth/reset_password_screen.dart'; 
 import 'package:zerocycle/features/auth/forgot_password_screen.dart'; 
 import 'package:zerocycle/features/home/DropOff/drop_off_location_screen.dart';
+import 'package:zerocycle/screens/points/bagikan_page.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -44,7 +46,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       
       // initialRoute menentukan halaman mana yang pertama kali dibuka
-      initialRoute: '/', // <-- Ganti dengan rute awal yang diinginkan
+      initialRoute: '/home', // <-- Ganti dengan rute awal yang diinginkan
       // Gunakan onGenerateRoute untuk handle routing dengan parameter
       onGenerateRoute: (RouteSettings settings) {
         switch (settings.name) {
@@ -101,6 +103,8 @@ class MyApp extends StatelessWidget {
         '/resetpw': (context) => const ResetPasswordScreen(),
         '/forgotPW': (context) => const ForgotPasswordScreen(),
         '/drop-off': (context) => const DropOffLocationScreen(),
+        '/bagikan': (context) => const BagikanPage(),
+        // Tambahkan rute lain sesuai kebutuhan
         
 
       

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zerocycle/features/home/PickUpScreen/kategori_sampah.dart';
 
 class PickUpScreen extends StatefulWidget {
   const PickUpScreen({super.key});
@@ -8,19 +9,23 @@ class PickUpScreen extends StatefulWidget {
 }
 
 class _PickUpScreenState extends State<PickUpScreen> {
-  String selectedWasteType = 'Plastik';
+  String selectedWasteType = 'Pilih Jenis Sampah';
   String selectedTimeSlot = '09:00 - 11:00';
   DateTime selectedDate = DateTime.now();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _notesController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   
+  // Ubah untuk mendukung multi kategori
+  List<Map<String, dynamic>> selectedWasteItems = [];
+  int totalWeight = 0;
+  
   final List<String> wasteTypes = [
     'Plastik',
     'Kertas',
-    'Logam',
-    'Kaca',
     'Elektronik',
+    'Botol Kaca',
+    'Logam',
     'Organik'
   ];
 
@@ -154,33 +159,131 @@ class _PickUpScreenState extends State<PickUpScreen> {
                   
                   const SizedBox(height: 20),
                   
-                  // Jenis sampah
+                  // Jenis sampah - Ubah menjadi tombol navigasi
                   _buildSectionTitle('Jenis Sampah'),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey.shade300),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        value: selectedWasteType,
-                        isExpanded: true,
-                        icon: const Icon(Icons.recycling),
-                        items: wasteTypes.map((String type) {
-                          return DropdownMenuItem<String>(
-                            value: type,
-                            child: Text(type),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            selectedWasteType = newValue!;
-                          });
-                        },
+                  InkWell(
+                    onTap: () => _navigateToKategoriSampah(),
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey.shade300),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.recycling, color: Color(0xFF0D723F)),
+                          const SizedBox(width: 12),
+                          Text(
+                            selectedWasteItems.isEmpty 
+                                ? 'Pilih Jenis Sampah' 
+                                : '${selectedWasteItems.length} jenis sampah dipilih',
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                          const Spacer(),
+                          const Icon(Icons.arrow_forward_ios, size: 16),
+                        ],
                       ),
                     ),
                   ),
+                  
+                  // Tampilkan detail sampah yang dipilih
+                  if (selectedWasteItems.isNotEmpty) ...[
+                    const SizedBox(height: 16),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: selectedWasteItems.length,
+                      itemBuilder: (context, index) {
+                        final wasteItem = selectedWasteItems[index];
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 10),
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFF0F9F5),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: const Color(0xFF0D723F).withOpacity(0.3)),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  if (wasteItem['iconPath'] != null && wasteItem['iconPath'].isNotEmpty)
+                                    Image.asset(
+                                      wasteItem['iconPath'],
+                                      width: 24,
+                                      height: 24,
+                                    ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    '${wasteItem['wasteType']} (${wasteItem['totalWeight']} kg)',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF0D723F),
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  // Tombol hapus
+                                  IconButton(
+                                    icon: const Icon(Icons.close, size: 18, color: Colors.red),
+                                    onPressed: () {
+                                      setState(() {
+                                        selectedWasteItems.removeAt(index);
+                                        _updateTotalWeight();
+                                      });
+                                    },
+                                    padding: EdgeInsets.zero,
+                                    constraints: const BoxConstraints(),
+                                  ),
+                                ],
+                              ),
+                              if (wasteItem['subTypeDetails'] != null && 
+                                  (wasteItem['subTypeDetails'] as List).isNotEmpty) ...[
+                                const SizedBox(height: 8),
+                                Wrap(
+                                  spacing: 8,
+                                  children: (wasteItem['subTypeDetails'] as List).map<Widget>((subType) {
+                                    return Chip(
+                                      label: Text(
+                                        '${subType['name']} (${subType['weight']} kg)',
+                                        style: const TextStyle(fontSize: 12, color: Color(0xFF0D723F)),
+                                      ),
+                                      backgroundColor: Colors.white,
+                                      side: BorderSide(color: const Color(0xFF0D723F).withOpacity(0.3)),
+                                      padding: EdgeInsets.zero,
+                                    );
+                                  }).toList(),
+                                ),
+                              ],
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                    
+                    // Tampilkan total berat
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF0D723F),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.scale, color: Colors.white, size: 16),
+                          const SizedBox(width: 8),
+                          Text(
+                            'Total: $totalWeight kg',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                   
                   const SizedBox(height: 20),
                   
@@ -392,6 +495,31 @@ class _PickUpScreenState extends State<PickUpScreen> {
     );
   }
 
+  Future<void> _navigateToKategoriSampah() async {
+    // Navigasi ke halaman KategoriSampah
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const KategoriSampah(allowMultipleSelection: true),
+      ),
+    );
+    
+    // Proses hasil yang dikembalikan
+    if (result != null && result is List<Map<String, dynamic>>) {
+      setState(() {
+        selectedWasteItems = result;
+        _updateTotalWeight();
+      });
+    }
+  }
+  
+  void _updateTotalWeight() {
+    totalWeight = 0;
+    for (var item in selectedWasteItems) {
+      totalWeight += (item['totalWeight'] as int);
+    }
+  }
+
   void _showConfirmationDialog() {
     showDialog(
       context: context,
@@ -409,7 +537,29 @@ class _PickUpScreenState extends State<PickUpScreen> {
               const SizedBox(height: 8),
               Text('Telepon: ${_phoneController.text}'),
               const SizedBox(height: 8),
-              Text('Jenis Sampah: $selectedWasteType'),
+              if (selectedWasteItems.isNotEmpty) ...[
+                const Text('Jenis Sampah:'),
+                const SizedBox(height: 4),
+                ...selectedWasteItems.map((item) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('• ${item['wasteType']} (${item['totalWeight']} kg)'),
+                      if ((item['subTypeDetails'] as List).isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16, top: 4, bottom: 4),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: (item['subTypeDetails'] as List).map<Widget>((subType) => 
+                              Text('  - ${subType['name']}: ${subType['weight']} kg')
+                            ).toList(),
+                          ),
+                        )
+                    ],
+                  );
+                }),
+                Text('Total Berat: $totalWeight kg'),
+              ],
               const SizedBox(height: 8),
               Text('Tanggal: ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}'),
               const SizedBox(height: 8),
