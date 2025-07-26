@@ -66,26 +66,28 @@ class _AkunPageScreenState extends State<AkunPageScreen> with SingleTickerProvid
               builder: (BuildContext context, BoxConstraints constraints) {
               final top = constraints.biggest.height;
               final expandRatio = (top - kToolbarHeight) / (240 - kToolbarHeight);
-              final opacity = math.max(0, expandRatio);
-              
+              // Clamp expandRatio between 0.0 and 1.0
+              final clampedExpandRatio = expandRatio.clamp(0.0, 1.0);
+              final opacity = clampedExpandRatio;
+
               return FlexibleSpaceBar(
                 centerTitle: false,
                 title: AnimatedOpacity(
-                opacity: 1.0 - opacity,
-                duration: const Duration(milliseconds: 200),
-                child: const Text(
-                  'Akun Saya',
-                  style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18,
-                  letterSpacing: 0.5,
+                  opacity: (1.0 - opacity).clamp(0.0, 1.0),
+                  duration: const Duration(milliseconds: 200),
+                  child: const Text(
+                    'Akun Saya',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                      letterSpacing: 0.5,
+                    ),
                   ),
                 ),
-                ),
                 titlePadding: EdgeInsets.only(
-                bottom: 16,
-                left: 16 * (1 - expandRatio),
+                  bottom: 16,
+                  left: 16 * (1 - clampedExpandRatio),
                 ),
                 expandedTitleScale: 1.0,
                 collapseMode: CollapseMode.parallax,
@@ -664,74 +666,74 @@ class _AkunPageScreenState extends State<AkunPageScreen> with SingleTickerProvid
   }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Material(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(16),
-        child: InkWell(
+        decoration: BoxDecoration(
+          color: Colors.white,
           borderRadius: BorderRadius.circular(16),
-          onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: isDestructive 
-                        ? Colors.red.withOpacity(0.1)
-                        : const Color(0xFF1B7748).withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Material(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(16),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(16),
+            onTap: onTap,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: isDestructive
+                          ? Colors.red.withOpacity(0.1)
+                          : const Color(0xFF1B7748).withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Icon(
+                      icon,
+                      color: isDestructive ? Colors.red : const Color(0xFF1B7748),
+                      size: 24,
+                    ),
                   ),
-                  child: Icon(
-                    icon, 
-                    color: isDestructive ? Colors.red : const Color(0xFF1B7748),
-                    size: 24,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: isDestructive ? Colors.red : Colors.black87,
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: isDestructive ? Colors.red : Colors.black87,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        subtitle,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey.shade600,
+                        const SizedBox(height: 4),
+                        Text(
+                          subtitle,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey.shade600,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Icon(
-                  Icons.chevron_right,
-                  color: Colors.grey.shade400,
-                ),
-              ],
+                  Icon(
+                    Icons.chevron_right,
+                    color: Colors.grey.shade400,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      ),
     );
   }
 }
